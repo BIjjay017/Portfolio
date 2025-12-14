@@ -92,8 +92,8 @@ const Contact = ({ data }) => {
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-purple-500/10 rounded-full">
-                  <MapPin className="text-purple-500" size={24} />
+                <div className="p-3 bg-primary-green/10 rounded-full">
+                  <MapPin className="text-primary-green" size={24} />
                 </div>
                 <div>
                   <h4 className="font-semibold">Location</h4>
@@ -107,7 +107,7 @@ const Contact = ({ data }) => {
               <div className="flex gap-4">
                 <a
                   href={data.github}
-                  className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  className="p-3 bg-slate-100/80 dark:bg-slate-800/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -115,7 +115,7 @@ const Contact = ({ data }) => {
                 </a>
                 <a
                   href={data.kaggle}
-                  className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  className="p-3 bg-slate-100/80 dark:bg-slate-800/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -157,7 +157,7 @@ const Contact = ({ data }) => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 bg-slate-50/80 dark:bg-slate-700/80 border border-slate-200/50 dark:border-slate-600/50 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
                     />
                   </div>
                   <div>
@@ -168,7 +168,7 @@ const Contact = ({ data }) => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 bg-slate-50/80 dark:bg-slate-700/80 border border-slate-200/50 dark:border-slate-600/50 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
                     />
                   </div>
                 </div>

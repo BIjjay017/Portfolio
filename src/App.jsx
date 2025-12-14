@@ -28,7 +28,7 @@ function App() {
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-light via-white to-blue-50 dark:from-gray-900 dark:via-primary-dark dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-emerald-50/40 to-sky-100/60 dark:from-slate-900 dark:via-blue-950/50 dark:to-emerald-950/30">
       <ScrollIndicator />
       <Header darkMode={darkMode} setDarkMode={setDarkMode} data={portfolioData.basicInfo} />
       <main>
@@ -45,7 +45,7 @@ function App() {
         <Contact data={portfolioData.basicInfo} />
       </main>
       
-      <footer className="bg-gray-800 text-white py-8">
+      <footer className="bg-gradient-to-br from-blue-950 via-emerald-950/80 to-blue-950 text-white py-8 border-t border-blue-900/50">
         <div className="section-container">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">

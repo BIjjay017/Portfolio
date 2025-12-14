@@ -1,10 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { GraduationCap, Award, Briefcase, Calendar, MapPin } from 'lucide-react';
+import kagglePython from '../pictures/bijay017 - Python.png';
+import kaggleML from '../pictures/bijay017 - Intro to Machine Learning.png';
+import kaggleDataViz from '../pictures/bijay017 - Data Visualization.png';
+import nvidiaDL from '../pictures/deepLearning.png';
 
 const Education = ({ education, certifications, experience }) => {
   return (
-    <section id="education" className="section-container bg-gray-50 dark:bg-gray-900/50">
+    <section id="education" className="section-container bg-gradient-to-b from-sky-100/40 via-emerald-50/30 to-transparent dark:from-blue-950/40 dark:via-emerald-950/20 dark:to-transparent">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -105,31 +109,105 @@ const Education = ({ education, certifications, experience }) => {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-purple-500/10 rounded-full">
-                  <Award className="text-purple-500" size={28} />
+                <div className="p-3 bg-primary-blue/10 rounded-full">
+                  <Award className="text-primary-blue" size={28} />
                 </div>
                 <h3 className="text-3xl font-bold">Certifications</h3>
               </div>
               
               <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="card flex items-center gap-4 hover:shadow-lg transition-shadow"
-                  >
-                    <div className="p-2 bg-gradient-to-r from-primary-blue/20 to-primary-green/20 rounded-lg">
-                      <Award className="text-primary-blue" size={24} />
-                    </div>
-                    <span className="text-gray-700 dark:text-gray-300 font-medium flex-1">
-                      {cert}
-                    </span>
-                  </motion.div>
-                ))}
+                {/* Kaggle Python Certificate */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="card hover:shadow-lg transition-all cursor-pointer group"
+                >
+                  <img 
+                    src={kagglePython} 
+                    alt="Kaggle Python Certificate"
+                    className="w-full rounded-lg mb-3 group-hover:opacity-90 transition-opacity"
+                  />
+                  <p className="text-gray-700 dark:text-gray-300 font-medium text-center">
+                    Kaggle - Python
+                  </p>
+                </motion.div>
+
+                {/* Kaggle Machine Learning Certificate */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="card hover:shadow-lg transition-all cursor-pointer group"
+                >
+                  <img 
+                    src={kaggleML} 
+                    alt="Kaggle Machine Learning Certificate"
+                    className="w-full rounded-lg mb-3 group-hover:opacity-90 transition-opacity"
+                  />
+                  <p className="text-gray-700 dark:text-gray-300 font-medium text-center">
+                    Kaggle - Intro to Machine Learning
+                  </p>
+                </motion.div>
+
+                {/* Kaggle Data Visualization Certificate */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="card hover:shadow-lg transition-all cursor-pointer group"
+                >
+                  <img 
+                    src={kaggleDataViz} 
+                    alt="Kaggle Data Visualization Certificate"
+                    className="w-full rounded-lg mb-3 group-hover:opacity-90 transition-opacity"
+                  />
+                  <p className="text-gray-700 dark:text-gray-300 font-medium text-center">
+                    Kaggle - Data Visualization
+                  </p>
+                </motion.div>
+
+                {/* NVIDIA Deep Learning Certificate */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="card hover:shadow-lg transition-all cursor-pointer group"
+                >
+                  <img 
+                    src={nvidiaDL} 
+                    alt="NVIDIA Deep Learning Fundamentals"
+                    className="w-full rounded-lg mb-3 group-hover:opacity-90 transition-opacity"
+                  />
+                  <p className="text-gray-700 dark:text-gray-300 font-medium text-center">
+                    NVIDIA Deep Learning Fundamentals
+                  </p>
+                </motion.div>
+
+                {/* MERN Stack (text only as no image provided) */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  className="card flex items-center gap-4 hover:shadow-lg transition-shadow"
+                >
+                  <div className="p-2 bg-gradient-to-r from-primary-blue/20 to-primary-green/20 rounded-lg">
+                    <Award className="text-primary-blue" size={24} />
+                  </div>
+                  <span className="text-gray-700 dark:text-gray-300 font-medium flex-1">
+                    MERN Stack Development
+                  </span>
+                </motion.div>
               </div>
             </motion.div>
           </div>

@@ -30,7 +30,7 @@ export const portfolioData = {
     
     skills: {
       languages: ["JavaScript", "Python"],
-      frameworks: ["React", "FastAPI"],
+      frameworks: ["React", "FastAPI", "Flask"],
       databases: ["Oracle", "MongoDB", "PostgreSQL"],
       tools: ["Postman", "PowerBI", "GitHub", "Kaggle"],
       radarData: {
@@ -101,7 +101,7 @@ export const portfolioData = {
         { name: "Frontend", value: 30 },
         { name: "Backend", value: 35 },
         { name: "ML/AI", value: 25 },
-        { name: "Data Science", value: 10 }
+        { name: "Data Science", value: 50 }
       ]
     }
   };

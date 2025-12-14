@@ -75,8 +75,8 @@ const About = ({ data }) => {
               className="card"
             >
               <div className="flex items-start gap-4 mb-4">
-                <div className="p-3 bg-purple-500/10 rounded-full">
-                  <Target className="text-purple-500" size={28} />
+                <div className="p-3 bg-primary-blue/10 rounded-full">
+                  <Target className="text-primary-blue" size={28} />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold mb-3">My Approach</h3>
@@ -108,7 +108,7 @@ const About = ({ data }) => {
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 * index }}
                       whileHover={{ scale: 1.05, x: 5 }}
-                      className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      className="flex items-center gap-4 p-4 bg-slate-50/80 dark:bg-slate-800/80 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-700/80 transition-colors"
                     >
                       <div className="p-2 bg-gradient-to-r from-primary-blue/20 to-primary-green/20 rounded-lg">
                         {iconMap[hobbyKey] || <Target size={24} />}

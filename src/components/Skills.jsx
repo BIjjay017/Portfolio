@@ -33,7 +33,7 @@ const SkillCategory = ({ title, skills, color }) => (
       {skills.map((skill, index) => (
         <span
           key={index}
-          className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium"
+          className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-full text-sm font-medium"
         >
           {skill}
         </span>
@@ -111,7 +111,7 @@ const Skills = ({ data }) => {
             <SkillCategory
               title="Databases"
               skills={data.databases}
-              color="bg-purple-500"
+              color="bg-primary-blue"
             />
             
             <SkillCategory

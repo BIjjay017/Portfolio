@@ -6,11 +6,11 @@ const Projects = ({ data }) => {
   const iconMap = {
     'Web': <Code className="text-primary-blue" size={20} />,
     'ML': <Cpu className="text-primary-green" size={20} />,
-    'Database': <Database className="text-purple-500" size={20} />
+    'Database': <Database className="text-primary-blue" size={20} />
   };
 
   return (
-    <section id="projects" className="section-container bg-gray-50 dark:bg-gray-900/50">
+    <section id="projects" className="section-container bg-gradient-to-b from-sky-100/40 via-emerald-50/30 to-transparent dark:from-blue-950/40 dark:via-emerald-950/20 dark:to-transparent">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

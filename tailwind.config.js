@@ -9,10 +9,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          blue: '#38bdf8',
-          green: '#4ade80',
-          dark: '#0f172a',
-          light: '#f8fafc'
+          blue: '#7dd3fc', // Light sky blue
+          green: '#86efac', // Light green
+          dark: '#0c4a6e', // Dark blue for dark mode
+          light: '#e0f2fe' // Light sky blue background
         }
       },
       animation: {

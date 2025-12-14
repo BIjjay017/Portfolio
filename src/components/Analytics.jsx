@@ -43,16 +43,16 @@ const Analytics = ({ data }) => {
         label: 'Focus Distribution (%)',
         data: data.focusAreas.map(area => area.value),
         backgroundColor: [
-          'rgba(56, 189, 248, 0.7)',
-          'rgba(74, 222, 128, 0.7)',
-          'rgba(168, 85, 247, 0.7)',
-          'rgba(245, 158, 11, 0.7)'
+          'rgba(125, 211, 252, 0.7)', // Light sky blue
+          'rgba(134, 239, 172, 0.7)', // Light green
+          'rgba(125, 211, 252, 0.5)', // Lighter sky blue
+          'rgba(134, 239, 172, 0.5)'  // Lighter green
         ],
         borderColor: [
-          'rgb(56, 189, 248)',
-          'rgb(74, 222, 128)',
-          'rgb(168, 85, 247)',
-          'rgb(245, 158, 11)'
+          'rgb(125, 211, 252)', // Light sky blue
+          'rgb(134, 239, 172)', // Light green
+          'rgb(56, 189, 248)',  // Sky blue
+          'rgb(74, 222, 128)'   // Green
         ],
         borderWidth: 2
       }
@@ -118,7 +118,7 @@ const Analytics = ({ data }) => {
             icon={Database}
             label={data.stats[2].label}
             value={data.stats[2].value}
-            color="bg-gradient-to-br from-purple-500 to-purple-700"
+            color="bg-gradient-to-br from-primary-blue to-primary-green"
           />
           <StatCard
             icon={Brain}
@@ -171,7 +171,7 @@ const Analytics = ({ data }) => {
                   Advanced Data Science techniques
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-primary-blue rounded-full"></div>
                   Full-stack development with modern frameworks
                 </li>
               </ul>

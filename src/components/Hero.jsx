@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Github, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Github, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
+import personImage from '../pictures/person.jpg';
+import cvPDF from '../pictures/Bijay_Shreepali_CV.pdf';
 
 const Hero = ({ data, intro }) => {
   return (
@@ -56,6 +58,13 @@ const Hero = ({ data, intro }) => {
             <a href="#contact" className="btn-outline">
               Contact Me
             </a>
+            <a 
+              href={cvPDF} 
+              download="Bijay_Shreepali_CV.pdf"
+              className="btn-outline flex items-center gap-2 hover:bg-primary-green/10 border-primary-green text-primary-green dark:text-primary-green"
+            >
+              Download CV <Download size={20} />
+            </a>
           </div>
         </motion.div>
 
@@ -65,55 +74,91 @@ const Hero = ({ data, intro }) => {
           transition={{ duration: 0.5 }}
           className="relative"
         >
-          <div className="relative h-64 md:h-96">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-blue to-primary-green rounded-3xl transform rotate-6"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-green to-primary-blue rounded-3xl transform -rotate-6"></div>
-            <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 flex flex-col justify-center">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-primary-blue/10 rounded-full">
-                    <MapPin className="text-primary-blue" size={24} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Location</p>
-                    <p className="font-medium">{data.location}</p>
-                  </div>
+          <div className="relative">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-blue to-primary-green rounded-3xl transform rotate-6 opacity-20"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-green to-primary-blue rounded-3xl transform -rotate-6 opacity-20"></div>
+            
+            {/* Main image container */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
+              <img 
+                src={personImage} 
+                alt={data.name}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+          
+          {/* Contact info card below image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mt-6 card bg-gradient-to-r from-primary-blue/5 to-primary-green/5"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-primary-blue/10 rounded-full">
+                  <MapPin className="text-primary-blue" size={20} />
                 </div>
-                
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-primary-green/10 rounded-full">
-                    <Mail className="text-primary-green" size={24} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Email</p>
-                    <p className="font-medium">{data.email}</p>
-                  </div>
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Location</p>
+                  <p className="font-medium text-gray-800 dark:text-gray-200">{data.location}</p>
                 </div>
-                
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-primary-blue/10 rounded-full">
-                    <Phone className="text-primary-blue" size={24} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Phone</p>
-                    <p className="font-medium">{data.phone}</p>
-                  </div>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-primary-green/10 rounded-full">
+                  <Mail className="text-primary-green" size={20} />
                 </div>
-                
-                <div className="flex gap-4">
-                  <a href={data.github} className="p-3 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
-                    <Github size={20} />
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                  <a href={`mailto:${data.email}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue transition-colors">
+                    {data.email}
                   </a>
-                  <a href={data.kaggle} className="p-3 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
-                    <span className="font-bold text-primary-blue">K</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-primary-blue/10 rounded-full">
+                  <Phone className="text-primary-blue" size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Phone</p>
+                  <a href={`tel:${data.phone}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue transition-colors">
+                    {data.phone}
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-4 pt-2">
+                <div className="p-3 bg-primary-green/10 rounded-full">
+                  <Github className="text-primary-green" size={20} />
+                </div>
+                <div className="flex gap-3">
+                  <a 
+                    href={data.github} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-600/80 transition-colors text-sm font-medium"
+                  >
+                    GitHub
+                  </a>
+                  <a 
+                    href={data.kaggle} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-600/80 transition-colors text-sm font-medium"
+                  >
+                    Kaggle
                   </a>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="mt-8 text-center">
-            <span className="px-6 py-2 bg-gradient-to-r from-primary-blue to-primary-green text-white rounded-full font-semibold animate-pulse-slow">
+          <div className="mt-6 text-center">
+            <span className="px-6 py-2 bg-gradient-to-r from-primary-blue to-primary-green text-white rounded-full font-semibold animate-pulse-slow inline-block">
               {data.availability}
             </span>
           </div>

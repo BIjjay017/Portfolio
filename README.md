@@ -1,4 +1,4 @@
-Visit the portfolio using the link:https://portfolio-3y2crcrpp-bijjay017s-projects.vercel.app/
+Visit the portfolio using the link:bijayshreepali.com.np
 
 
 # React + Vite

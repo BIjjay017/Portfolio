@@ -31,7 +31,7 @@ const StatCard = ({ icon: Icon, label, value, color }) => (
       <Icon size={24} className="text-white" />
     </div>
     <h3 className="text-3xl font-bold mb-2">{value}</h3>
-    <p className="text-gray-600 dark:text-gray-400">{label}</p>
+    <p className="text-gray-700 dark:text-gray-200">{label}</p>
   </motion.div>
 );
 
@@ -144,7 +144,7 @@ const Analytics = ({ data }) => {
                   <div key={index}>
                     <div className="flex justify-between mb-1">
                       <span className="font-medium">{area.name}</span>
-                      <span className="text-primary-blue">{area.value}%</span>
+                      <span className="text-primary-blue-700 dark:text-primary-blue-200">{area.value}%</span>
                     </div>
                     <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <motion.div

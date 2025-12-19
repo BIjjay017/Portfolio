@@ -14,6 +14,12 @@ const Contact = ({ data }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // EmailJS configuration — set these as Vite environment variables in a .env file
+  // Example names: VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -26,12 +32,13 @@ const Contact = ({ data }) => {
     setIsSubmitting(true);
 
     try {
-      await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-        formData,
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
-      );
+      if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+        alert('Email is not configured. Add VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID and VITE_EMAILJS_PUBLIC_KEY to your .env file.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY);
       
       setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -61,7 +68,7 @@ const Contact = ({ data }) => {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-gray-700 dark:text-gray-200 mb-8">
               I'm always open to discussing new opportunities, interesting projects, 
               or just chatting about technology and innovation.
             </p>
@@ -69,11 +76,11 @@ const Contact = ({ data }) => {
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <Mail className="text-primary-blue" size={24} />
+                  <Mail className="text-primary-blue-700 dark:text-primary-blue-200" size={24} />
                 </div>
                 <div>
                   <h4 className="font-semibold">Email</h4>
-                  <a href={`mailto:${data.email}`} className="text-gray-600 dark:text-gray-400 hover:text-primary-blue">
+                  <a href={`mailto:${data.email}`} className="text-gray-700 dark:text-gray-200 hover:text-primary-blue-700 dark:hover:text-primary-blue-200">
                     {data.email}
                   </a>
                 </div>
@@ -85,19 +92,19 @@ const Contact = ({ data }) => {
                 </div>
                 <div>
                   <h4 className="font-semibold">Phone</h4>
-                  <a href={`tel:${data.phone}`} className="text-gray-600 dark:text-gray-400 hover:text-primary-blue">
+                  <a href={`tel:${data.phone}`} className="text-gray-700 dark:text-gray-200 hover:text-primary-blue-700 dark:hover:text-primary-blue-200">
                     {data.phone}
                   </a>
                 </div>
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary-green/10 rounded-full">
-                  <MapPin className="text-primary-green" size={24} />
+                <div className="p-3 bg-purple-500/10 rounded-full">
+                  <MapPin className="text-purple-500" size={24} />
                 </div>
                 <div>
                   <h4 className="font-semibold">Location</h4>
-                  <p className="text-gray-600 dark:text-gray-400">{data.location}</p>
+                  <p className="text-gray-700 dark:text-gray-200">{data.location}</p>
                 </div>
               </div>
             </div>
@@ -107,19 +114,19 @@ const Contact = ({ data }) => {
               <div className="flex gap-4">
                 <a
                   href={data.github}
-                  className="p-3 bg-slate-100/80 dark:bg-slate-800/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors"
+                  className="p-3 bg-primary-blue/10 dark:bg-primary-blue-900 rounded-lg hover:bg-primary-blue/20 dark:hover:bg-primary-blue-800 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-bold">GitHub</span>
+                  <span className="font-bold text-gray-800 dark:text-gray-100">GitHub</span>
                 </a>
                 <a
                   href={data.kaggle}
-                  className="p-3 bg-slate-100/80 dark:bg-slate-800/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors"
+                  className="p-3 bg-primary-blue/10 dark:bg-primary-blue-900 rounded-lg hover:bg-primary-blue/20 dark:hover:bg-primary-blue-800 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-bold text-primary-blue">Kaggle</span>
+                  <span className="font-bold text-primary-blue-700 dark:text-primary-blue-200">Kaggle</span>
                 </a>
               </div>
             </div>
@@ -142,7 +149,7 @@ const Contact = ({ data }) => {
               >
                 <CheckCircle className="w-16 h-16 text-primary-green mx-auto mb-4" />
                 <h4 className="text-xl font-bold mb-2">Message Sent!</h4>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-700 dark:text-gray-200">
                   Thank you for your message. I'll get back to you soon.
                 </p>
               </motion.div>
@@ -150,7 +157,7 @@ const Contact = ({ data }) => {
               <>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Name</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-800 dark:text-gray-200">Name</label>
                     <input
                       type="text"
                       name="name"
@@ -161,7 +168,7 @@ const Contact = ({ data }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-800 dark:text-gray-200">Email</label>
                     <input
                       type="email"
                       name="email"
@@ -174,26 +181,26 @@ const Contact = ({ data }) => {
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2">Subject</label>
+                  <label className="block text-sm font-medium mb-2 text-gray-800 dark:text-gray-200">Subject</label>
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 bg-primary-blue/10 dark:bg-primary-blue-900 text-gray-800 dark:text-gray-100 border border-primary-blue/10 dark:border-primary-blue-800 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
                   />
                 </div>
                 
                 <div className="mb-6">
-                  <label className="block text-sm font-medium mb-2">Message</label>
+                  <label className="block text-sm font-medium mb-2 text-gray-800 dark:text-gray-200">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows="5"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition resize-none"
+                    className="w-full px-4 py-3 bg-primary-blue/10 dark:bg-primary-blue-900 text-gray-800 dark:text-gray-100 border border-primary-blue-10 dark:border-primary-blue-800 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition resize-none"
                   ></textarea>
                 </div>
                 

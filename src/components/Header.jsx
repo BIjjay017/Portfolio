@@ -38,7 +38,7 @@ const Header = ({ darkMode, setDarkMode, data }) => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-primary-blue font-medium transition-colors"
+                className="text-gray-600 dark:text-gray-300 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 font-medium transition-colors"
               >
                 {item.label}
               </a>
@@ -84,7 +84,7 @@ const Header = ({ darkMode, setDarkMode, data }) => {
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-3 text-gray-600 dark:text-gray-300 hover:text-primary-blue dark:hover:text-primary-blue font-medium"
+                className="block py-3 text-gray-600 dark:text-gray-300 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 font-medium"
               >
                 {item.label}
               </a>

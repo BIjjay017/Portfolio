@@ -111,7 +111,7 @@ const Skills = ({ data }) => {
             <SkillCategory
               title="Databases"
               skills={data.databases}
-              color="bg-primary-blue"
+              color="bg-purple-500"
             />
             
             <SkillCategory
@@ -126,7 +126,7 @@ const Skills = ({ data }) => {
             <div className="h-80">
               <Radar data={chartData} options={chartOptions} />
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-center mt-6">
+            <p className="text-gray-700 dark:text-gray-200 text-center mt-6">
               Versatile skill set spanning full-stack development, data science, and machine learning
             </p>
           </div>

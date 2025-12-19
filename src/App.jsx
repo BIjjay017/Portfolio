@@ -9,7 +9,6 @@ import Education from './components/Education';
 import Analytics from './components/Analytics';
 import Contact from './components/Contact';
 import ScrollIndicator from './components/ScrollIndicator';
-import './styles/main.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -28,7 +27,7 @@ function App() {
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-emerald-50/40 to-sky-100/60 dark:from-slate-900 dark:via-blue-950/50 dark:to-emerald-950/30">
+    <div className="min-h-screen bg-gradient-to-br from-primary-blue/10 via-primary-blue/10 to-primary-green/10 dark:from-primary-dark dark:via-primary-blue/20 dark:to-primary-dark">
       <ScrollIndicator />
       <Header darkMode={darkMode} setDarkMode={setDarkMode} data={portfolioData.basicInfo} />
       <main>
@@ -45,7 +44,7 @@ function App() {
         <Contact data={portfolioData.basicInfo} />
       </main>
       
-      <footer className="bg-gradient-to-br from-blue-950 via-emerald-950/80 to-blue-950 text-white py-8 border-t border-blue-900/50">
+      <footer className="bg-gradient-to-br from-primary-dark via-primary-blue/10 to-primary-dark text-white py-8 border-t border-primary-blue/10">
         <div className="section-container">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
@@ -53,13 +52,13 @@ function App() {
               <p className="text-gray-400">{portfolioData.basicInfo.tagline}</p>
             </div>
             <div className="flex space-x-4">
-              <a href={portfolioData.basicInfo.github} className="hover:text-primary-blue transition-colors">
+              <a href={portfolioData.basicInfo.github} className="hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
                 GitHub
               </a>
-              <a href={portfolioData.basicInfo.kaggle} className="hover:text-primary-blue transition-colors">
+              <a href={portfolioData.basicInfo.kaggle} className="hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
                 Kaggle
               </a>
-              <a href={`mailto:${portfolioData.basicInfo.email}`} className="hover:text-primary-blue transition-colors">
+              <a href={`mailto:${portfolioData.basicInfo.email}`} className="hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
                 Email
               </a>
             </div>

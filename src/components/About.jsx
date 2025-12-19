@@ -33,11 +33,11 @@ const About = ({ data }) => {
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <GraduationCap className="text-primary-blue" size={28} />
+                  <GraduationCap className="text-primary-blue-700 dark:text-primary-blue-200" size={28} />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold mb-3">Education</h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                     {data.education}
                   </p>
                 </div>
@@ -57,7 +57,7 @@ const About = ({ data }) => {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold mb-3">My Philosophy</h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                     {data.philosophy}
                   </p>
                 </div>
@@ -75,12 +75,12 @@ const About = ({ data }) => {
               className="card"
             >
               <div className="flex items-start gap-4 mb-4">
-                <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <Target className="text-primary-blue" size={28} />
+                <div className="p-3 bg-purple-500/10 rounded-full">
+                  <Target className="text-purple-500" size={28} />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold mb-3">My Approach</h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                     {data.approach}
                   </p>
                 </div>
@@ -108,7 +108,8 @@ const About = ({ data }) => {
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 * index }}
                       whileHover={{ scale: 1.05, x: 5 }}
-                      className="flex items-center gap-4 p-4 bg-slate-50/80 dark:bg-slate-800/80 rounded-lg hover:bg-slate-100/80 dark:hover:bg-slate-700/80 transition-colors"
+                      className="flex items-center gap-4 p-4 bg-primary-blue/10 dark:bg-primary-blue-900 rounded-lg hover:bg-primary-blue/20 dark:hover:bg-primary-blue-800 transition-colors"
+
                     >
                       <div className="p-2 bg-gradient-to-r from-primary-blue/20 to-primary-green/20 rounded-lg">
                         {iconMap[hobbyKey] || <Target size={24} />}
@@ -132,7 +133,7 @@ const About = ({ data }) => {
         >
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">What Drives Me</h3>
-            <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-200 max-w-3xl mx-auto leading-relaxed">
               I'm passionate about creating technology that has a tangible impact on people's lives. 
               Whether it's through predictive models that help make better decisions or full-stack applications 
               that solve real-world problems, I believe in building solutions that matter. My journey in 

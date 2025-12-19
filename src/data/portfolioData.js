@@ -9,6 +9,8 @@ export const portfolioData = {
       github: "https://github.com/BIjjay017",
       kaggle: "https://www.kaggle.com/bijay017",
       availability: "Available for Internship/Full-time roles",
+      website: "https://bijayshreepali.com.np",
+      portfolioUrl: "bijayshreepali.com.np",
     },
     
     introduction: {

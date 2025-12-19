@@ -22,7 +22,7 @@ const Hero = ({ data, intro }) => {
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-600 dark:text-gray-300 mb-6">
                 {data.title}
               </h2>
-              <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">
+              <p className="text-xl text-gray-700 dark:text-gray-200 mb-8">
                 {data.tagline}
               </p>
             </div>
@@ -44,7 +44,7 @@ const Hero = ({ data, intro }) => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 * index }}
-                className="px-4 py-2 bg-primary-blue/10 dark:bg-primary-blue/20 text-primary-blue rounded-full text-sm font-medium"
+                className="px-4 py-2 bg-primary-blue/10 dark:bg-primary-blue/800 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm font-medium"
               >
                 {highlight}
               </motion.span>
@@ -99,10 +99,10 @@ const Hero = ({ data, intro }) => {
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <MapPin className="text-primary-blue" size={20} />
+                  <MapPin className="text-primary-blue-700 dark:text-primary-blue-200" size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Location</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-300">Location</p>
                   <p className="font-medium text-gray-800 dark:text-gray-200">{data.location}</p>
                 </div>
               </div>
@@ -112,8 +112,8 @@ const Hero = ({ data, intro }) => {
                   <Mail className="text-primary-green" size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
-                  <a href={`mailto:${data.email}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue transition-colors">
+                  <p className="text-xs text-gray-500 dark:text-gray-300">Email</p>
+                  <a href={`mailto:${data.email}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
                     {data.email}
                   </a>
                 </div>
@@ -121,11 +121,11 @@ const Hero = ({ data, intro }) => {
               
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <Phone className="text-primary-blue" size={20} />
+                  <Phone className="text-primary-blue-700 dark:text-primary-blue-200" size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Phone</p>
-                  <a href={`tel:${data.phone}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue transition-colors">
+                  <p className="text-xs text-gray-500 dark:text-gray-300">Phone</p>
+                  <a href={`tel:${data.phone}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
                     {data.phone}
                   </a>
                 </div>

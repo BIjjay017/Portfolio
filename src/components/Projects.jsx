@@ -4,13 +4,13 @@ import { ExternalLink, Code, Database, Cpu } from 'lucide-react';
 
 const Projects = ({ data }) => {
   const iconMap = {
-    'Web': <Code className="text-primary-blue" size={20} />,
-    'ML': <Cpu className="text-primary-green" size={20} />,
-    'Database': <Database className="text-primary-blue" size={20} />
-  };
+    'Web': <Code className="text-primary-blue-700 dark:text-primary-blue-200" size={20} />,
+    'ML': <Cpu className="text-primary-green-700 dark:text-primary-green-200" size={20} />,
+    'Database': <Database className="text-purple-500" size={20} />
+  }; 
 
   return (
-    <section id="projects" className="section-container bg-gradient-to-b from-sky-100/40 via-emerald-50/30 to-transparent dark:from-blue-950/40 dark:via-emerald-950/20 dark:to-transparent">
+    <section id="projects" className="section-container bg-gradient-to-b from-primary-blue/10 via-primary-blue/8 to-transparent dark:from-primary-dark/50 dark:via-primary-blue/30 dark:to-transparent">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -34,7 +34,7 @@ const Projects = ({ data }) => {
                     {project.category.map((cat) => (
                       <span
                         key={cat}
-                        className="flex items-center gap-1 px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm"
+                        className="flex items-center gap-1 px-3 py-1 bg-primary-blue/10 dark:bg-primary-blue-900 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm"
                       >
                         {iconMap[cat]} {cat}
                       </span>
@@ -44,7 +44,7 @@ const Projects = ({ data }) => {
                 {project.github !== '#' && (
                   <a
                     href={project.github}
-                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                    className="p-2 hover:bg-primary-blue/20 dark:hover:bg-primary-blue-800 rounded-lg transition-colors"
                   >
                     <ExternalLink size={20} />
                   </a>
@@ -54,11 +54,11 @@ const Projects = ({ data }) => {
               <div className="mb-6 space-y-4">
                 <div>
                   <h4 className="font-semibold text-gray-700 dark:text-gray-300 mb-1">Challenge</h4>
-                  <p className="text-gray-600 dark:text-gray-400">{project.problem}</p>
+                  <p className="text-gray-700 dark:text-gray-200">{project.problem}</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-700 dark:text-gray-300 mb-1">Solution</h4>
-                  <p className="text-gray-600 dark:text-gray-400">{project.solution}</p>
+                  <p className="text-gray-700 dark:text-gray-200">{project.solution}</p>
                 </div>
               </div>
               
@@ -68,7 +68,7 @@ const Projects = ({ data }) => {
                   {project.techStack.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-gradient-to-r from-primary-blue/10 to-primary-green/10 text-primary-blue dark:text-primary-blue rounded-full text-sm"
+                      className="px-3 py-1 bg-gradient-to-r from-primary-blue/10 to-primary-green/10 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm"
                     >
                       {tech}
                     </span>
@@ -77,7 +77,7 @@ const Projects = ({ data }) => {
               </div>
               
               <div className="flex justify-between items-center">
-                <span className="px-4 py-2 bg-primary-blue/10 text-primary-blue rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-primary-blue/10 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm font-medium">
                   {project.role}
                 </span>
                 <span className="text-sm text-gray-500">
@@ -94,7 +94,7 @@ const Projects = ({ data }) => {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-blue-600 dark:text-blue-400 mb-6">
             More projects available on GitHub and Kaggle
           </p>
           <div className="flex justify-center gap-4">

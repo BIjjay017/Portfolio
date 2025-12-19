@@ -6,11 +6,19 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Expose theme colors as CSS variables so we can safely reference them in custom gradients */
+  :root {
+    /* Using fixed hex values avoids build-time theme() resolution issues */
+    --primary-blue-700: #2563eb; /* primary-blue.700 */
+    --primary-green-700: #059669; /* primary-green.700 */
+  }
   
   body {
-    @apply bg-gradient-to-br from-sky-50 via-emerald-50/40 to-sky-100/60 dark:from-slate-900 dark:via-blue-950/50 dark:to-emerald-950/30 text-gray-800 dark:text-gray-200 transition-colors duration-300;
+    /* Neutral sky-blue + green themed background */
+    @apply bg-gradient-to-br from-primary-blue/10 via-primary-blue/10 to-primary-green/10 dark:from-primary-dark dark:via-primary-blue/20 dark:to-primary-dark text-gray-800 dark:text-gray-200 transition-colors duration-300;
   }
-}
+} 
 
 @layer components {
   .section-container {
@@ -30,10 +38,18 @@
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-blue to-primary-green text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity;
+    /* Softer, lower-contrast variant with explicit contrast for light/dark */
+    @apply bg-gradient-to-r from-primary-blue/30 via-primary-blue/25 to-primary-green/30 text-white px-6 py-3 rounded-lg font-semibold shadow-sm border border-white/10 hover:opacity-95 hover:shadow-md transition-all duration-200;
+  }
+
+  /* Dark mode: use an explicit background-image using CSS variables (compiled from Tailwind theme) */
+  .dark .btn-primary {
+    background-image: linear-gradient(to right, var(--primary-blue-700), var(--primary-green-700));
+    @apply text-white border-primary-blue-800;
   }
   
   .btn-outline {
-    @apply border border-primary-blue text-primary-blue dark:text-primary-blue px-6 py-3 rounded-lg font-semibold hover:bg-primary-blue/10 transition-colors;
+    /* Outline button: readable in light and dark */
+    @apply border border-primary-blue-100 text-primary-blue-700 dark:text-primary-blue-200 px-6 py-3 rounded-lg font-semibold hover:bg-primary-blue/10 dark:hover:bg-primary-blue-800 transition-colors;
   }
 }

@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
+import { container, fadeUp } from '../utils/animations';
 import { ExternalLink, Code, Database, Cpu } from 'lucide-react';
 
 const Projects = ({ data }) => {
@@ -12,8 +13,9 @@ const Projects = ({ data }) => {
   return (
     <section id="projects" className="section-container bg-gradient-to-b from-primary-blue/10 via-primary-blue/8 to-transparent dark:from-primary-dark/50 dark:via-primary-blue/30 dark:to-transparent">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        variants={container}
+        initial="hidden"
+        whileInView="show"
         viewport={{ once: true }}
       >
         <h2 className="section-title">
@@ -24,7 +26,9 @@ const Projects = ({ data }) => {
           {data.map((project) => (
             <motion.div
               key={project.id}
-              whileHover={{ y: -10 }}
+              variants={fadeUp}
+              whileHover={{ y: -10, scale: 1.02, boxShadow: '0 10px 30px rgba(2,6,23,0.08)' }}
+              transition={{ type: 'spring', stiffness: 300 }}
               className="card group"
             >
               <div className="flex justify-between items-start mb-4">

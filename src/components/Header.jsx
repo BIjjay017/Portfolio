@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Menu, X, Download } from 'lucide-react';
+import { fadeUp } from '../utils/animations';
 import { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 import cvPDF from '../pictures/Bijay_Shreepali_CV.pdf';
@@ -34,14 +35,16 @@ const Header = ({ darkMode, setDarkMode, data }) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
+            {navItems.map((item, idx) => (
+              <motion.a
                 key={item.label}
                 href={item.href}
+                variants={fadeUp}
+                transition={{ delay: idx * 0.03 }}
                 className="text-gray-600 dark:text-gray-300 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 font-medium transition-colors"
               >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
             
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -79,15 +82,17 @@ const Header = ({ darkMode, setDarkMode, data }) => {
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-xl shadow-lg p-4 mt-2 border border-gray-200/50 dark:border-slate-700/50"
           >
-            {navItems.map((item) => (
-              <a
+            {navItems.map((item, idx) => (
+              <motion.a
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
+                variants={fadeUp}
+                transition={{ delay: idx * 0.02 }}
                 className="block py-3 text-gray-600 dark:text-gray-300 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 font-medium"
               >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
             <a 
               href={cvPDF} 

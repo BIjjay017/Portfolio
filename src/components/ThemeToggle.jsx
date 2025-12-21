@@ -17,8 +17,8 @@ const ThemeToggle = ({ darkMode, setDarkMode, className = '' }) => {
     >
       <motion.div
         initial={false}
-        animate={{ rotate: darkMode ? 180 : 0 }}
-        transition={{ duration: 0.3 }}
+        animate={{ rotate: darkMode ? 180 : 0, scale: darkMode ? 1.05 : 1 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 24 }}
       >
         {darkMode ? (
           <Sun className="text-yellow-500" size={20} />

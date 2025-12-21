@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
+import { container, fadeUp, pill } from '../utils/animations';
 import { Radar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -22,7 +23,8 @@ ChartJS.register(
 
 const SkillCategory = ({ title, skills, color }) => (
   <motion.div
-    whileHover={{ scale: 1.05 }}
+    variants={fadeUp}
+    whileHover={{ scale: 1.03 }}
     className="card"
   >
     <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -31,16 +33,48 @@ const SkillCategory = ({ title, skills, color }) => (
     </h3>
     <div className="flex flex-wrap gap-2">
       {skills.map((skill, index) => (
-        <span
+        <motion.span
           key={index}
+          variants={pill}
+          whileHover={{ scale: 1.06 }}
           className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-full text-sm font-medium"
         >
           {skill}
-        </span>
+        </motion.span>
       ))}
     </div>
   </motion.div>
 );
+
+const SkillProgress = ({ radarData }) => {
+  if (!radarData || !radarData.labels?.length) {
+    return (
+      <div className="text-sm text-gray-500 dark:text-gray-400">Skill data unavailable</div>
+    );
+  }
+
+  return (
+    <div className="space-y-3 mt-6">
+      {radarData.labels.map((label, idx) => {
+        const val = radarData.values?.[idx] ?? 0;
+        return (
+          <div key={label} className="flex items-center gap-4">
+            <div className="w-32 text-sm text-gray-700 dark:text-gray-300">{label}</div>
+            <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: `${val}%` }}
+                transition={{ duration: 0.9, ease: 'easeOut' }}
+                className="h-3 bg-primary-blue dark:bg-primary-blue-400 rounded-full"
+              />
+            </div>
+            <div className="w-12 text-right text-sm text-gray-600 dark:text-gray-300">{val}%</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 const Skills = ({ data }) => {
   const chartData = {
@@ -86,8 +120,9 @@ const Skills = ({ data }) => {
   return (
     <section id="skills" className="section-container">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        variants={container}
+        initial="hidden"
+        whileInView="show"
         viewport={{ once: true }}
       >
         <h2 className="section-title">
@@ -121,15 +156,19 @@ const Skills = ({ data }) => {
             />
           </div>
           
-          <div className="card">
+          <motion.div variants={fadeUp} className="card">
             <h3 className="text-2xl font-bold mb-6 text-center">Skill Radar</h3>
             <div className="h-80">
               <Radar data={chartData} options={chartOptions} />
             </div>
+
+            {/* Add readable progress bars to show exact values */}
+            <SkillProgress radarData={data.radarData} />
+
             <p className="text-gray-700 dark:text-gray-200 text-center mt-6">
               Versatile skill set spanning full-stack development, data science, and machine learning
             </p>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>

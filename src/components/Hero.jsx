@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Github, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
+import { container, pill } from '../utils/animations';
 import personImage from '../pictures/person.jpg';
 import cvPDF from '../pictures/Bijay_Shreepali_CV.pdf';
 
@@ -37,19 +38,17 @@ const Hero = ({ data, intro }) => {
             {intro.summary}
           </motion.p>
 
-          <div className="flex flex-wrap gap-4 mb-8">
+          <motion.div className="flex flex-wrap gap-4 mb-8" variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
             {intro.highlights.map((highlight, index) => (
               <motion.span
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 * index }}
+                variants={pill}
                 className="px-4 py-2 bg-primary-blue/10 dark:bg-primary-blue/800 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm font-medium"
               >
                 {highlight}
               </motion.span>
             ))}
-          </div>
+          </motion.div>
 
           <div className="flex flex-wrap gap-4">
             <a href="#projects" className="btn-primary flex items-center gap-2">
@@ -71,7 +70,8 @@ const Hero = ({ data, intro }) => {
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
+          whileHover={{ scale: 1.02, rotate: 0.5 }}
+          transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
           className="relative"
         >
           <div className="relative">

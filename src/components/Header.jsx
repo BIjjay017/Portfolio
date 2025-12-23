@@ -96,7 +96,7 @@ const Header = ({ darkMode, setDarkMode, data }) => {
             ))}
             <a 
               href={cvPDF} 
-              download="Bijay_Shreepali_CV.pdf"
+              download="BijayShreepali.pdf"
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center gap-2 py-3 text-gray-600 dark:text-gray-300 hover:text-primary-green dark:hover:text-primary-green font-medium border-t border-gray-200 dark:border-gray-700 mt-2 pt-3"
             >

@@ -4,7 +4,7 @@ import { Menu, X, Download } from 'lucide-react';
 import { fadeUp } from '../utils/animations';
 import { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
-import cvPDF from '../pictures/Bijay_Shreepali_CV.pdf';
+import cvPDF from '../pictures/BijayShreepali.pdf';
 
 const Header = ({ darkMode, setDarkMode, data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

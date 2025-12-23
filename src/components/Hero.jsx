@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Github, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
 import { container, pill } from '../utils/animations';
 import personImage from '../pictures/person.jpg';
-import cvPDF from '../pictures/Bijay_Shreepali_CV.pdf';
+import cvPDF from '../pictures/BijayShreepali.pdf';
 
 const Hero = ({ data, intro }) => {
   return (
@@ -59,7 +59,7 @@ const Hero = ({ data, intro }) => {
             </a>
             <a 
               href={cvPDF} 
-              download="Bijay_Shreepali_CV.pdf"
+              download="BijayShreepali.pdf"
               className="btn-outline flex items-center gap-2 hover:bg-primary-green/10 border-primary-green text-primary-green dark:text-primary-green"
             >
               Download CV <Download size={20} />

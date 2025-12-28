@@ -267,18 +267,17 @@ const Contact = ({ data }) => {
         try {
           await loadRecaptcha();
           recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact' });
+          console.log('reCAPTCHA token obtained:', recaptchaToken ? 'success' : 'failed');
         } catch (err) {
-          console.warn('reCAPTCHA not available:', err);
+          console.error('reCAPTCHA execution failed:', err);
+          // Don't block submission if reCAPTCHA fails - proceed without it
         }
+      } else {
+        console.warn('reCAPTCHA site key not configured');
       }
 
       // If captcha is configured, verify token server-side before sending email
-      if (RECAPTCHA_SITE_KEY) {
-        if (!recaptchaToken) {
-          setErrors({ general: 'Captcha token missing. Please retry.' });
-          setIsSubmitting(false);
-          return;
-        }
+      if (RECAPTCHA_SITE_KEY && recaptchaToken) {
         try {
           const verifyResp = await fetch('/api/verify-recaptcha', {
             method: 'POST',
@@ -293,10 +292,10 @@ const Contact = ({ data }) => {
           }
         } catch (err) {
           console.warn('Captcha verification error:', err);
-          setErrors({ general: 'Captcha verification error. Please try again later.' });
-          setIsSubmitting(false);
-          return;
+          // Don't block on captcha verification error - proceed anyway
         }
+      } else if (RECAPTCHA_SITE_KEY && !recaptchaToken) {
+        console.warn('reCAPTCHA configured but token missing - proceeding without verification');
       }
 
       await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY);

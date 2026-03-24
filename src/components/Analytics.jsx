@@ -158,24 +158,6 @@ const Analytics = ({ data }) => {
                 ))}
               </div>
             </div>
-            
-            <div className="card">
-              <h4 className="text-xl font-bold mb-4">Current Focus</h4>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary-blue rounded-full"></div>
-                  Building RAG applications with LLMs
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary-green rounded-full"></div>
-                  Advanced Data Science techniques
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary-blue rounded-full"></div>
-                  Full-stack development with modern frameworks
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </motion.div>

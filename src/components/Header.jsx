@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Download } from 'lucide-react';
 import { fadeUp } from '../utils/animations';
 import { useState } from 'react';
@@ -76,35 +76,38 @@ const Header = ({ darkMode, setDarkMode, data }) => {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-xl shadow-lg p-4 mt-2 border border-gray-200/50 dark:border-slate-700/50"
-          >
-            {navItems.map((item, idx) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                onClick={() => setIsMenuOpen(false)}
-                variants={fadeUp}
-                transition={{ delay: idx * 0.02 }}
-                className="block py-3 text-gray-600 dark:text-gray-300 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 font-medium"
-              >
-                {item.label}
-              </motion.a>
-            ))}
-            <a 
-              href={cvPDF} 
-              download="BijayShreepali.pdf"
-              onClick={() => setIsMenuOpen(false)}
-              className="flex items-center gap-2 py-3 text-gray-600 dark:text-gray-300 hover:text-primary-green dark:hover:text-primary-green font-medium border-t border-gray-200 dark:border-gray-700 mt-2 pt-3"
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
+              className="md:hidden bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-xl shadow-lg p-4 mt-2 border border-white/20 dark:border-slate-600/30"
             >
-              <Download size={18} />
-              Download CV
-            </a>
-          </motion.div>
-        )}
+              {navItems.map((item, idx) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  variants={fadeUp}
+                  transition={{ delay: idx * 0.02 }}
+                  className="block py-3 text-gray-600 dark:text-gray-300 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 font-medium"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+              <a 
+                href={cvPDF} 
+                download="BijayShreepali.pdf"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 py-3 text-gray-600 dark:text-gray-300 hover:text-primary-green dark:hover:text-primary-green font-medium border-t border-gray-200/50 dark:border-gray-700/50 mt-2 pt-3"
+              >
+                <Download size={18} />
+                Download CV
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </motion.header>
   );

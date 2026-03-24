@@ -134,11 +134,8 @@ const About = ({ data }) => {
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">What Drives Me</h3>
             <p className="text-gray-700 dark:text-gray-200 max-w-3xl mx-auto leading-relaxed">
-              I'm passionate about creating technology that has a tangible impact on people's lives. 
-              Whether it's through predictive models that help make better decisions or full-stack applications 
-              that solve real-world problems, I believe in building solutions that matter. My journey in 
-              computer science has taught me that the best technologies are those that seamlessly integrate 
-              into daily life, making complex tasks simpler and enabling new possibilities.
+              I build technology that makes a tangible impact — from predictive models to full-stack apps 
+              that solve real problems. The best tech integrates seamlessly into daily life.
             </p>
           </div>
         </motion.div>

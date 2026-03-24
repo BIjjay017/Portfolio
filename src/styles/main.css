@@ -7,18 +7,18 @@
     scroll-behavior: smooth;
   }
 
-  /* Expose theme colors as CSS variables so we can safely reference them in custom gradients */
   :root {
-    /* Using fixed hex values avoids build-time theme() resolution issues */
-    --primary-blue-700: #2563eb; /* primary-blue.700 */
-    --primary-green-700: #059669; /* primary-green.700 */
+    --primary-blue-700: #2563eb;
+    --primary-green-700: #059669;
+    --glow-blue: rgba(96, 165, 250, 0.4);
+    --glow-green: rgba(52, 211, 153, 0.4);
   }
   
   body {
-    /* Neutral sky-blue + green themed background */
     @apply bg-gradient-to-br from-primary-blue/10 via-primary-blue/10 to-primary-green/10 dark:from-primary-dark dark:via-primary-blue/20 dark:to-primary-dark text-gray-800 dark:text-gray-200 transition-colors duration-300;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-} 
+}
 
 @layer components {
   .section-container {
@@ -26,7 +26,14 @@
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center;
+    @apply text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center relative;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply block mx-auto mt-3 h-1 w-16 rounded-full;
+    background: linear-gradient(90deg, var(--primary-blue-700), var(--primary-green-700));
+    animation: shimmer-bar 3s ease-in-out infinite;
   }
   
   .gradient-text {
@@ -34,22 +41,135 @@
   }
   
   .card {
-    @apply bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-slate-700/50 rounded-2xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl;
+    @apply bg-white/70 dark:bg-slate-800/60 backdrop-blur-xl border border-white/20 dark:border-slate-600/30 rounded-2xl shadow-lg p-6 transition-all duration-500;
+  }
+
+  .card:hover {
+    @apply shadow-2xl;
+    border-color: rgba(96, 165, 250, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .dark .card:hover {
+    box-shadow: 0 8px 32px rgba(96, 165, 250, 0.08), 0 0 64px rgba(52, 211, 153, 0.04);
+    border-color: rgba(96, 165, 250, 0.25);
+  }
+
+  .glow-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(135deg, var(--glow-blue), transparent 40%, transparent 60%, var(--glow-green));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .glow-border:hover::before {
+    opacity: 1;
   }
   
   .btn-primary {
-    /* Softer, lower-contrast variant with explicit contrast for light/dark */
-    @apply bg-gradient-to-r from-primary-blue/30 via-primary-blue/25 to-primary-green/30 text-white px-6 py-3 rounded-lg font-semibold shadow-sm border border-white/10 hover:opacity-95 hover:shadow-md transition-all duration-200;
+    @apply bg-gradient-to-r from-primary-blue/30 via-primary-blue/25 to-primary-green/30 text-white px-6 py-3 rounded-lg font-semibold shadow-sm border border-white/10 transition-all duration-300;
   }
 
-  /* Dark mode: use an explicit background-image using CSS variables (compiled from Tailwind theme) */
+  .btn-primary:hover {
+    @apply shadow-lg;
+    box-shadow: 0 4px 20px var(--glow-blue), 0 0 40px rgba(96, 165, 250, 0.1);
+    transform: translateY(-1px);
+  }
+
   .dark .btn-primary {
     background-image: linear-gradient(to right, var(--primary-blue-700), var(--primary-green-700));
     @apply text-white border-primary-blue-800;
   }
+
+  .dark .btn-primary:hover {
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.35), 0 0 48px rgba(5, 150, 105, 0.15);
+  }
   
   .btn-outline {
-    /* Outline button: readable in light and dark */
-    @apply border border-primary-blue-100 text-primary-blue-700 dark:text-primary-blue-200 px-6 py-3 rounded-lg font-semibold hover:bg-primary-blue/10 dark:hover:bg-primary-blue-800 transition-colors;
+    @apply border border-primary-blue-100 text-primary-blue-700 dark:text-primary-blue-200 px-6 py-3 rounded-lg font-semibold hover:bg-primary-blue/10 dark:hover:bg-primary-blue-800 transition-all duration-300;
   }
+
+  .btn-outline:hover {
+    transform: translateY(-1px);
+    @apply shadow-md;
+  }
+}
+
+/* === Premium Keyframe Animations === */
+
+@keyframes shimmer-bar {
+  0%, 100% { width: 4rem; opacity: 0.8; }
+  50% { width: 6rem; opacity: 1; }
+}
+
+@keyframes gradient-mesh {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 0%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--glow-blue); }
+  50% { box-shadow: 0 0 20px var(--glow-blue), 0 0 40px var(--glow-green); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utility animation classes */
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.animate-float-subtle {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up-fade 0.6s ease-out both;
+}
+
+/* Smooth gradient mesh background for hero area */
+.gradient-mesh-bg {
+  background: linear-gradient(-45deg, 
+    rgba(96, 165, 250, 0.08), 
+    rgba(52, 211, 153, 0.06), 
+    rgba(139, 92, 246, 0.05), 
+    rgba(96, 165, 250, 0.08)
+  );
+  background-size: 400% 400%;
+  animation: gradient-mesh 15s ease infinite;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-content {
+  @apply bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 dark:border-slate-600/30 overflow-hidden;
 }

@@ -84,9 +84,6 @@ const Projects = ({ data }) => {
                 <span className="px-4 py-2 bg-primary-blue/10 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm font-medium">
                   {project.role}
                 </span>
-                <span className="text-sm text-gray-500">
-                  Machine Learning & Development
-                </span>
               </div>
             </motion.div>
           ))}

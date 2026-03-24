@@ -29,15 +29,6 @@ const Hero = ({ data, intro }) => {
             </div>
           </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-600 dark:text-gray-400 mb-8"
-          >
-            {intro.summary}
-          </motion.p>
-
           <motion.div className="flex flex-wrap gap-4 mb-8" variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
             {intro.highlights.map((highlight, index) => (
               <motion.span

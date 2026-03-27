@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, Mail, MapPin, Phone, Send } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import emailjs from 'emailjs-com';
+import { useState } from 'react';
 
 const initialForm = {
   name: '',
@@ -17,14 +16,6 @@ export default function Contact({ data }) {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-  const isConfigured = useMemo(() => {
-    return Boolean(SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY);
-  }, [PUBLIC_KEY, SERVICE_ID, TEMPLATE_ID]);
 
   const validate = () => {
     const nextErrors = {};
@@ -60,10 +51,23 @@ export default function Contact({ data }) {
     setIsSubmitting(true);
 
     try {
-      if (!isConfigured) {
-        window.location.href = `mailto:${data.email}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(form.message)}`;
-      } else {
-        await emailjs.send(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY);
+      const payload = new FormData();
+      payload.append('name', form.name);
+      payload.append('email', form.email);
+      payload.append('subject', form.subject);
+      payload.append('message', form.message);
+      payload.append('_subject', `Portfolio Contact: ${form.subject}`);
+      payload.append('_captcha', 'false');
+      payload.append('_template', 'table');
+
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(data.email)}`, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: payload,
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
       }
 
       setForm(initialForm);
@@ -121,11 +125,6 @@ export default function Contact({ data }) {
           className="floating-panel p-7"
         >
           <h3 className="mb-4 text-2xl font-black text-slate-900">Send message</h3>
-          {!isConfigured && (
-            <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-700">
-              EmailJS is not configured. Submission will open your default email app.
-            </p>
-          )}
           {errors.general && <p className="mb-4 text-sm font-semibold text-red-600">{errors.general}</p>}
 
           {isSubmitted ? (

@@ -4,7 +4,7 @@ import Reveal from './animations/Reveal';
 
 const Projects = ({ data }) => {
   return (
-    <section id="projects" className="section-container">
+    <section id="projects" className="section-container relative overflow-hidden">
       <motion.div>
         <span className="section-kicker">03 Selected Work</span>
         <h2 className="mb-12 text-4xl font-black leading-tight text-slate-900 md:text-6xl">

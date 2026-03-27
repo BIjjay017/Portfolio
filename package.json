@@ -10,7 +10,6 @@
     "deploy": "npm run build && vercel --prod"
   },
   "dependencies": {
-    "@react-three/fiber": "^8.17.14",
     "chart.js": "^4.4.0",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^10.16.4",
@@ -21,8 +20,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
-    "split-type": "^0.3.4",
-    "three": "^0.183.2"
+    "split-type": "^0.3.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

@@ -17,7 +17,7 @@ export const portfolioData = {
       summary: "Full-stack developer exploring AI/ML with hands-on experience in React, FastAPI, and data science.",
       highlights: [
         "Building RAG apps with LLMs",
-        "React, FastAPI & Oracle stack",
+        "React, Node, Express & Oracle stack",
         "Data Science & ML foundation"
       ]
     },
@@ -31,37 +31,59 @@ export const portfolioData = {
     
     skills: {
       languages: ["JavaScript", "Python"],
-      frameworks: ["React", "FastAPI", "Flask"],
+      frameworks: ["React", "Node.js", "Express", "FastAPI", "Flask"],
       databases: ["Oracle", "MongoDB", "PostgreSQL"],
       tools: ["Postman", "PowerBI", "GitHub", "Kaggle"],
       radarData: {
-        labels: ['JavaScript', 'Python', 'React', 'FastAPI', 'Databases', 'ML/AI', 'Data Science', 'Flask'],
-        values: [55, 60, 50, 45, 42, 58, 48, 40]
+        labels: ['JavaScript', 'Python', 'React', 'Node.js', 'Express', 'Databases', 'ML/AI', 'Data Science'],
+        values: [62, 60, 55, 52, 48, 50, 58, 48]
       }
     },
     
     projects: [
       {
         id: 1,
-        title: "Dynamic Pricing",
+        title: "Customer Segmentation and Ad Distribution",
         category: ["Web", "ML"],
-        description: "ML-powered flight price prediction for optimal booking",
-        problem: "Flight prices fluctuate unpredictably",
-        solution: "ML model predicts optimal booking windows",
-        techStack: ["Django", "Postgres", "Bootstrap"],
-        role: "ML & Frontend",
-        github: "#"
+        description: "Customer segmentation pipeline for targeting ad campaigns based on behavioral groups.",
+        problem: "Generic campaigns reduce engagement and waste ad spend.",
+        solution: "Applied segmentation logic to group users and support more relevant ad delivery decisions.",
+        techStack: ["Python", "Machine Learning", "Data Analysis", "Jupyter Notebook"],
+        role: "ML & Analytics",
+        github: "https://github.com/BIjjay017/Customer-Segmentation-and-Ad-Distribution"
       },
       {
         id: 2,
-        title: "Customer Segmentation",
+        title: "Data Visualization Application",
         category: ["Web", "ML"],
-        description: "Personalized ad campaigns via customer segmentation",
-        problem: "Generic ads miss target audiences",
-        solution: "Segment customers for targeted email campaigns",
-        techStack: ["Flask", "Postgres"],
-        role: "ML & Development",
-        github: "#"
+        description: "Data visualization and descriptive analytics app for turning raw datasets into readable insights.",
+        problem: "Raw data is difficult to interpret quickly for decision-making.",
+        solution: "Built visualization workflows that summarize trends and produce concise analytical outputs.",
+        techStack: ["Python", "Data Analysis", "Visualization"],
+        role: "Data & App Development",
+        github: "https://github.com/BIjjay017/Data-Visualization-Application"
+      },
+      {
+        id: 3,
+        title: "WhatsApp Chatbot",
+        category: ["Web", "Backend"],
+        description: "Chatbot workflow integrations for automated messaging and webhook-driven communication.",
+        problem: "Manual response workflows are slow and inconsistent.",
+        solution: "Implemented webhook automation and backend routing for faster and more consistent responses.",
+        techStack: ["Node.js", "Express", "JavaScript", "Webhooks"],
+        role: "Backend & Integrations",
+        github: "https://github.com/BIjjay017/WhatsApp-Chatbot"
+      },
+      {
+        id: 4,
+        title: "Airline Booking System",
+        category: ["Web", "Backend"],
+        description: "Sample airline booking workflow project for reservation and management logic.",
+        problem: "Booking flows require structured handling of routes, availability, and passenger data.",
+        solution: "Implemented a backend-first booking structure to model real reservation scenarios.",
+        techStack: ["Python", "Backend", "Database"],
+        role: "Backend & Logic",
+        github: "https://github.com/BIjjay017/Airline-Booking-System"
       }
     ],
     
@@ -93,8 +115,8 @@ export const portfolioData = {
     
     analytics: {
       stats: [
-        { label: "Projects", value: "5+" },
-        { label: "Technologies", value: "12+" },
+        { label: "Projects", value: "10+" },
+        { label: "Technologies", value: "15+" },
         { label: "Commits", value: "500+" },
         { label: "Learning Hrs", value: "2000+" }
       ],

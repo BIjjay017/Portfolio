@@ -1,36 +1,32 @@
-import { Canvas, useFrame } from '@react-three/fiber';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Github, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { splitTextAnimation } from '../animations/textAnimations';
 import { container, pill } from '../utils/animations';
 import cvPDF from '../pictures/BijayShreepali.pdf';
-
-function FloatingBox() {
-  const meshRef = useRef(null);
-
-  useFrame(({ mouse }) => {
-    if (!meshRef.current) {
-      return;
-    }
-
-    meshRef.current.rotation.y += 0.01;
-    meshRef.current.rotation.x = mouse.y * 0.5;
-    meshRef.current.rotation.z = mouse.x * 0.2;
-  });
-
-  return (
-    <mesh ref={meshRef}>
-      <boxGeometry args={[2.4, 2.4, 2.4]} />
-      <meshStandardMaterial color="#22c55e" metalness={0.5} roughness={0.2} />
-    </mesh>
-  );
-}
+import personImage from '../pictures/person.jpg';
 
 const Hero = ({ data, intro }) => {
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 500], [1, 0.9]);
   const y = useTransform(scrollY, [0, 500], [0, -30]);
+  const xTilt = useMotionValue(0);
+  const yTilt = useMotionValue(0);
+  const smoothX = useSpring(xTilt, { stiffness: 140, damping: 18, mass: 0.35 });
+  const smoothY = useSpring(yTilt, { stiffness: 140, damping: 18, mass: 0.35 });
+
+  const handleImageMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 14;
+    const yValue = ((event.clientY - rect.top) / rect.height - 0.5) * 14;
+    xTilt.set(x);
+    yTilt.set(yValue);
+  };
+
+  const handleImageLeave = () => {
+    xTilt.set(0);
+    yTilt.set(0);
+  };
 
   useEffect(() => {
     const split = splitTextAnimation('.hero-title');
@@ -104,15 +100,25 @@ const Hero = ({ data, intro }) => {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="relative"
         >
-          <div className="floating-panel relative h-[420px] overflow-hidden">
-            <Canvas camera={{ position: [0, 0, 5], fov: 55 }}>
-              <ambientLight intensity={0.9} />
-              <directionalLight position={[2, 2, 3]} intensity={1.2} />
-              <FloatingBox />
-            </Canvas>
+          <div
+            className="floating-panel relative h-[420px] overflow-hidden"
+            onMouseMove={handleImageMove}
+            onMouseLeave={handleImageLeave}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-sky-100/50 via-white/40 to-emerald-100/45 dark:from-slate-900/50 dark:via-slate-800/35 dark:to-slate-900/45" />
+            <motion.img
+              src={personImage}
+              alt={data.name}
+              className="absolute bottom-0 left-1/2 h-[108%] w-auto -translate-x-1/2 object-cover"
+              style={{ x: smoothX, y: smoothY, willChange: 'transform' }}
+              initial={{ scale: 1.03, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/80 to-transparent dark:from-slate-900/70" />
 
             <div className="absolute left-4 top-4 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold tracking-[0.14em] text-slate-700 backdrop-blur">
-              SCROLL TO EXPLORE
+              INTERACTIVE PORTRAIT
             </div>
           </div>
 
@@ -144,10 +150,12 @@ const Hero = ({ data, intro }) => {
                   </a>
                 </div>
               </div>
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-sky-100 p-3">
-                        <Phone className="text-primary-blue-700" size={18} />
-                  <Phone className="text-primary-blue-700" size={20} />
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="rounded-full bg-sky-100 p-3">
+                  <Phone className="text-primary-blue-700" size={18} />
                 </div>
                 <div>
                   <p className="text-xs text-slate-500">Phone</p>

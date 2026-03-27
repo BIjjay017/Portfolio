@@ -36,7 +36,7 @@ function App() {
       <Cursor />
       <Header darkMode={darkMode} setDarkMode={setDarkMode} data={portfolioData.basicInfo} />
       <PageTransition>
-        <main className="noise-overlay">
+        <main className="noise-overlay relative overflow-hidden">
           <Hero data={portfolioData.basicInfo} intro={portfolioData.introduction} />
           <About data={portfolioData.about} />
           <Skills data={portfolioData.skills} />

@@ -1,40 +1,80 @@
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Github, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { splitTextAnimation } from '../animations/textAnimations';
 import { container, pill } from '../utils/animations';
-import personImage from '../pictures/person.jpg';
 import cvPDF from '../pictures/BijayShreepali.pdf';
 
-const Hero = ({ data, intro }) => {
+function FloatingBox() {
+  const meshRef = useRef(null);
+
+  useFrame(({ mouse }) => {
+    if (!meshRef.current) {
+      return;
+    }
+
+    meshRef.current.rotation.y += 0.01;
+    meshRef.current.rotation.x = mouse.y * 0.5;
+    meshRef.current.rotation.z = mouse.x * 0.2;
+  });
+
   return (
-    <section id="home" className="section-container pt-32 md:pt-40">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary-blue/20 to-primary-green/20 rounded-full blur-xl opacity-50"></div>
-            <div className="relative">
-              <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                Hi, I'm <span className="gradient-text">{data.name}</span>
-              </h1>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-600 dark:text-gray-300 mb-6">
-                {data.title}
-              </h2>
-              <p className="text-xl text-gray-700 dark:text-gray-200 mb-8">
-                {data.tagline}
-              </p>
+    <mesh ref={meshRef}>
+      <boxGeometry args={[2.4, 2.4, 2.4]} />
+      <meshStandardMaterial color="#22c55e" metalness={0.5} roughness={0.2} />
+    </mesh>
+  );
+}
+
+const Hero = ({ data, intro }) => {
+  const { scrollY } = useScroll();
+  const scale = useTransform(scrollY, [0, 500], [1, 0.9]);
+  const y = useTransform(scrollY, [0, 500], [0, -30]);
+
+  useEffect(() => {
+    const split = splitTextAnimation('.hero-title');
+    return () => {
+      split?.revert();
+    };
+  }, []);
+
+  return (
+    <motion.section id="home" style={{ scale, y }} className="relative min-h-screen overflow-hidden pt-28 md:pt-36">
+      <div className="pointer-events-none absolute inset-0 gradient-mesh-bg" />
+
+      <div className="section-container relative z-10 split-grid">
+        <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65 }}>
+          <span className="section-kicker">Digital Craft + Engineering</span>
+          <h1 className="hero-title mb-4 text-5xl font-black leading-[0.95] text-slate-900 md:text-7xl lg:text-8xl">
+            FULL-STACK
+            <br />
+            <span className="gradient-text">DEVELOPER</span>
+          </h1>
+          <h2 className="mb-3 text-2xl font-semibold text-slate-700 md:text-3xl">{data.name}</h2>
+          <p className="mb-8 max-w-2xl text-lg text-slate-600">{data.tagline}. I blend full-stack development and AI thinking to build products that are fast, useful, and visually memorable.</p>
+
+          <div className="mb-8 grid max-w-2xl grid-cols-3 gap-3">
+            <div className="floating-panel p-4">
+              <p className="numbered-label">Websites</p>
+              <p className="mt-1 text-2xl font-black text-slate-900">40+</p>
+            </div>
+            <div className="floating-panel p-4">
+              <p className="numbered-label">Projects</p>
+              <p className="mt-1 text-2xl font-black text-slate-900">{intro.highlights.length}+ </p>
+            </div>
+            <div className="floating-panel p-4">
+              <p className="numbered-label">Location</p>
+              <p className="mt-1 text-lg font-black text-slate-900">Nepal</p>
             </div>
           </div>
 
-          <motion.div className="flex flex-wrap gap-4 mb-8" variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
+          <motion.div className="mb-8 flex flex-wrap gap-3" variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
             {intro.highlights.map((highlight, index) => (
               <motion.span
                 key={index}
                 variants={pill}
-                className="px-4 py-2 bg-primary-blue/10 dark:bg-primary-blue/800 text-primary-blue-700 dark:text-primary-blue-200 rounded-full text-sm font-medium"
+                className="rounded-full border border-slate-300 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 backdrop-blur"
               >
                 {highlight}
               </motion.span>
@@ -43,15 +83,15 @@ const Hero = ({ data, intro }) => {
 
           <div className="flex flex-wrap gap-4">
             <a href="#projects" className="btn-primary flex items-center gap-2">
-              View Projects <ExternalLink size={20} />
+              Explore Work <ExternalLink size={20} />
             </a>
             <a href="#contact" className="btn-outline">
-              Contact Me
+              Say Hello
             </a>
             <a 
               href={cvPDF} 
               download="BijayShreepali.pdf"
-              className="btn-outline flex items-center gap-2 hover:bg-primary-green/10 border-primary-green text-primary-green dark:text-primary-green"
+              className="btn-outline flex items-center gap-2"
             >
               Download CV <Download size={20} />
             </a>
@@ -59,103 +99,89 @@ const Hero = ({ data, intro }) => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
-          whileHover={{ scale: 1.02, rotate: 0.5 }}
-          transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
           className="relative"
         >
-          <div className="relative">
-            {/* Decorative background elements */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-blue to-primary-green rounded-3xl transform rotate-6 opacity-20"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-green to-primary-blue rounded-3xl transform -rotate-6 opacity-20"></div>
-            
-            {/* Main image container */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
-              <img 
-                src={personImage} 
-                alt={data.name}
-                className="w-full h-auto object-cover"
-              />
+          <div className="floating-panel relative h-[420px] overflow-hidden">
+            <Canvas camera={{ position: [0, 0, 5], fov: 55 }}>
+              <ambientLight intensity={0.9} />
+              <directionalLight position={[2, 2, 3]} intensity={1.2} />
+              <FloatingBox />
+            </Canvas>
+
+            <div className="absolute left-4 top-4 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold tracking-[0.14em] text-slate-700 backdrop-blur">
+              SCROLL TO EXPLORE
             </div>
           </div>
-          
-          {/* Contact info card below image */}
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-6 card bg-gradient-to-r from-primary-blue/5 to-primary-green/5"
+            transition={{ delay: 0.25 }}
+            className="mt-6 grid gap-4 rounded-2xl border border-slate-200/70 bg-white/75 p-5 backdrop-blur md:grid-cols-2"
           >
             <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <MapPin className="text-primary-blue-700 dark:text-primary-blue-200" size={20} />
+              <div className="flex items-center gap-3">
+                <div className="rounded-full bg-sky-100 p-3">
+                  <MapPin className="text-primary-blue-700" size={18} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-300">Location</p>
-                  <p className="font-medium text-gray-800 dark:text-gray-200">{data.location}</p>
+                  <p className="text-xs text-slate-500">Location</p>
+                  <p className="font-medium text-slate-800">{data.location}</p>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-primary-green/10 rounded-full">
-                  <Mail className="text-primary-green" size={20} />
+
+              <div className="flex items-center gap-3">
+                <div className="rounded-full bg-emerald-100 p-3">
+                  <Mail className="text-primary-green" size={18} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-300">Email</p>
-                  <a href={`mailto:${data.email}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
+                  <p className="text-xs text-slate-500">Email</p>
+                  <a href={`mailto:${data.email}`} className="font-medium text-slate-800 transition-colors hover:text-primary-blue-700">
                     {data.email}
                   </a>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-primary-blue/10 rounded-full">
-                  <Phone className="text-primary-blue-700 dark:text-primary-blue-200" size={20} />
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-sky-100 p-3">
+                        <Phone className="text-primary-blue-700" size={18} />
+                  <Phone className="text-primary-blue-700" size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-300">Phone</p>
-                  <a href={`tel:${data.phone}`} className="font-medium text-gray-800 dark:text-gray-200 hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
+                  <p className="text-xs text-slate-500">Phone</p>
+                  <a href={`tel:${data.phone}`} className="font-medium text-slate-800 transition-colors hover:text-primary-blue-700">
                     {data.phone}
                   </a>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-4 pt-2">
-                <div className="p-3 bg-primary-green/10 rounded-full">
-                  <Github className="text-primary-green" size={20} />
-                </div>
-                <div className="flex gap-3">
-                  <a 
-                    href={data.github} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-600/80 transition-colors text-sm font-medium"
-                  >
-                    GitHub
+
+              <div className="pt-1">
+                <p className="mb-2 text-xs text-slate-500">Links</p>
+                <div className="flex flex-wrap gap-2">
+                  <a href={data.github} target="_blank" rel="noopener noreferrer" className="btn-outline px-4 py-2 text-sm">
+                    <Github size={16} /> GitHub
                   </a>
-                  <a 
-                    href={data.kaggle} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-lg hover:bg-slate-200/80 dark:hover:bg-slate-600/80 transition-colors text-sm font-medium"
-                  >
+                  <a href={data.kaggle} target="_blank" rel="noopener noreferrer" className="btn-outline px-4 py-2 text-sm">
                     Kaggle
                   </a>
                 </div>
               </div>
             </div>
           </motion.div>
-          
+
           <div className="mt-6 text-center">
-            <span className="px-6 py-2 bg-gradient-to-r from-primary-blue to-primary-green text-white rounded-full font-semibold animate-pulse-slow inline-block">
+            <span className="inline-block rounded-full bg-gradient-to-r from-primary-blue to-primary-green px-6 py-2 font-semibold text-white">
               {data.availability}
             </span>
           </div>
         </motion.div>
       </div>
-    </section>
+
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-primary-blue/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 top-20 h-72 w-72 rounded-full bg-primary-green/20 blur-3xl" />
+    </motion.section>
   );
 };
 

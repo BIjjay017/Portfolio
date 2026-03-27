@@ -1,174 +1,77 @@
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { container, fadeUp, pill } from '../utils/animations';
-import { Radar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend
-} from 'chart.js';
 
-ChartJS.register(
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend
-);
-
-const SkillCategory = ({ title, skills, color }) => (
-  <motion.div
-    variants={fadeUp}
-    whileHover={{ scale: 1.03 }}
-    className="card"
-  >
-    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-      <div className={`w-3 h-3 rounded-full ${color}`}></div>
-      {title}
-    </h3>
-    <div className="flex flex-wrap gap-2">
-      {skills.map((skill, index) => (
-        <motion.span
-          key={index}
-          variants={pill}
-          whileHover={{ scale: 1.06 }}
-          className="px-4 py-2 bg-slate-100/80 dark:bg-slate-700/80 rounded-full text-sm font-medium"
-        >
-          {skill}
-        </motion.span>
-      ))}
-    </div>
-  </motion.div>
-);
-
-const SkillProgress = ({ radarData }) => {
-  if (!radarData || !radarData.labels?.length) {
-    return (
-      <div className="text-sm text-gray-500 dark:text-gray-400">Skill data unavailable</div>
-    );
-  }
-
-  return (
-    <div className="space-y-3 mt-6">
-      {radarData.labels.map((label, idx) => {
-        const val = radarData.values?.[idx] ?? 0;
-        return (
-          <div key={label} className="flex items-center gap-4">
-            <div className="w-32 text-sm text-gray-700 dark:text-gray-300">{label}</div>
-            <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${val}%` }}
-                transition={{ duration: 0.9, ease: 'easeOut' }}
-                className="h-3 bg-primary-blue dark:bg-primary-blue-400 rounded-full"
-              />
-            </div>
-            <div className="w-12 text-right text-sm text-gray-600 dark:text-gray-300">{val}%</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+const categories = [
+  { key: 'languages', title: 'Languages', color: 'bg-sky-100 text-sky-700' },
+  { key: 'frameworks', title: 'Frameworks', color: 'bg-emerald-100 text-emerald-700' },
+  { key: 'databases', title: 'Databases', color: 'bg-amber-100 text-amber-700' },
+  { key: 'tools', title: 'Tools', color: 'bg-violet-100 text-violet-700' },
+];
 
 const Skills = ({ data }) => {
-  const chartData = {
-    labels: data.radarData.labels,
-    datasets: [
-      {
-        label: 'Skill Proficiency',
-        data: data.radarData.values,
-        backgroundColor: 'rgba(56, 189, 248, 0.2)',
-        borderColor: 'rgb(56, 189, 248)',
-        borderWidth: 2,
-        pointBackgroundColor: 'rgb(56, 189, 248)',
-      },
-    ],
-  };
-
-  const chartOptions = {
-    scales: {
-      r: {
-        angleLines: {
-          display: true,
-          color: 'rgba(255, 255, 255, 0.1)'
-        },
-        suggestedMin: 0,
-        suggestedMax: 100,
-        ticks: {
-          display: false
-        },
-        grid: {
-          color: 'rgba(255, 255, 255, 0.1)'
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          color: '#9CA3AF'
-        }
-      }
-    }
-  };
-
   return (
     <section id="skills" className="section-container">
       <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
       >
-        <h2 className="section-title">
-          Technical <span className="gradient-text">Expertise</span>
+        <span className="section-kicker">02 Capabilities</span>
+        <h2 className="mb-12 text-4xl font-black leading-tight text-slate-900 md:text-6xl">
+          Modern stack,
+          <br />
+          <span className="gradient-text">production mindset</span>
         </h2>
-        
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <SkillCategory
-              title="Programming Languages"
-              skills={data.languages}
-              color="bg-blue-500"
-            />
-            
-            <SkillCategory
-              title="Frameworks & Libraries"
-              skills={data.frameworks}
-              color="bg-green-500"
-            />
-            
-            <SkillCategory
-              title="Databases"
-              skills={data.databases}
-              color="bg-purple-500"
-            />
-            
-            <SkillCategory
-              title="Tools & Platforms"
-              skills={data.tools}
-              color="bg-yellow-500"
-            />
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          {categories.map((category, idx) => (
+            <motion.article
+              key={category.key}
+              className="floating-panel p-7"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: idx * 0.06 }}
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-2xl font-black text-slate-900">{category.title}</h3>
+                <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] ${category.color}`}>
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {(data[category.key] ?? []).map((skill) => (
+                  <span key={skill} className="rounded-full border border-slate-300 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        <div className="floating-panel mt-8 p-7">
+          <p className="numbered-label mb-4">Skill Profile</p>
+          <div className="space-y-3">
+            {data.radarData.labels.map((label, idx) => {
+              const value = data.radarData.values[idx] ?? 0;
+              return (
+                <div key={label} className="grid grid-cols-[120px_1fr_40px] items-center gap-4">
+                  <span className="text-sm font-semibold text-slate-600">{label}</span>
+                  <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${value}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.9, delay: idx * 0.06 }}
+                      className="h-2 rounded-full bg-gradient-to-r from-primary-blue to-primary-green"
+                    />
+                  </div>
+                  <span className="text-sm font-semibold text-slate-500">{value}</span>
+                </div>
+              );
+            })}
           </div>
-          
-          <motion.div variants={fadeUp} className="card">
-            <h3 className="text-2xl font-bold mb-6 text-center">Skill Radar</h3>
-            <div className="h-80">
-              <Radar data={chartData} options={chartOptions} />
-            </div>
-
-            {/* Add readable progress bars to show exact values */}
-            <SkillProgress radarData={data.radarData} />
-
-            <p className="text-gray-700 dark:text-gray-200 text-center mt-6">
-              Versatile skill set spanning full-stack development, data science, and machine learning
-            </p>
-          </motion.div>
         </div>
       </motion.div>
     </section>

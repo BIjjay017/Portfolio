@@ -6,14 +6,18 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Education from './components/Education';
-import Analytics from './components/Analytics';
 import Contact from './components/Contact';
 import ScrollIndicator from './components/ScrollIndicator';
+import Cursor from './components/Cursor/Cursor';
+import PageTransition from './components/Transitions/PageTransition';
+import StickySection from './components/StickySection';
+import useLenis from './hooks/useLenis';
 
 function App() {
+  useLenis();
+
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark' || 
-           (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    return localStorage.getItem('theme') === 'dark';
   });
 
   useEffect(() => {
@@ -27,43 +31,46 @@ function App() {
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-blue/10 via-primary-blue/10 to-primary-green/10 dark:from-primary-dark dark:via-primary-blue/20 dark:to-primary-dark">
+    <div className="min-h-screen">
       <ScrollIndicator />
+      <Cursor />
       <Header darkMode={darkMode} setDarkMode={setDarkMode} data={portfolioData.basicInfo} />
-      <main>
-        <Hero data={portfolioData.basicInfo} intro={portfolioData.introduction} />
-        <About data={portfolioData.about} />
-        <Skills data={portfolioData.skills} />
-        <Projects data={portfolioData.projects} />
-        <Education 
-          education={portfolioData.education} 
-          certifications={portfolioData.certifications}
-          experience={portfolioData.experience}
-        />
-        <Analytics data={portfolioData.analytics} />
-        <Contact data={portfolioData.basicInfo} />
-      </main>
+      <PageTransition>
+        <main className="noise-overlay">
+          <Hero data={portfolioData.basicInfo} intro={portfolioData.introduction} />
+          <About data={portfolioData.about} />
+          <Skills data={portfolioData.skills} />
+          <Projects data={portfolioData.projects} />
+          <StickySection />
+          <Education 
+            education={portfolioData.education} 
+            certifications={portfolioData.certifications}
+            experience={portfolioData.experience}
+          />
+          <Contact data={portfolioData.basicInfo} />
+        </main>
+      </PageTransition>
       
-      <footer className="bg-gradient-to-br from-primary-dark via-primary-blue/10 to-primary-dark text-white py-8 border-t border-primary-blue/10">
+      <footer className="border-t border-slate-200/70 bg-white/65 py-8 text-slate-700">
         <div className="section-container">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="mb-4 md:mb-0">
               <h3 className="text-2xl font-bold gradient-text">{portfolioData.basicInfo.name}</h3>
-              <p className="text-gray-400">{portfolioData.basicInfo.tagline}</p>
+              <p className="text-slate-500">{portfolioData.basicInfo.tagline}</p>
             </div>
             <div className="flex space-x-4">
-              <a href={portfolioData.basicInfo.github} className="hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
+              <a href={portfolioData.basicInfo.github} className="transition-colors hover:text-primary-blue-700">
                 GitHub
               </a>
-              <a href={portfolioData.basicInfo.kaggle} className="hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
+              <a href={portfolioData.basicInfo.kaggle} className="transition-colors hover:text-primary-blue-700">
                 Kaggle
               </a>
-              <a href={`mailto:${portfolioData.basicInfo.email}`} className="hover:text-primary-blue-700 dark:hover:text-primary-blue-200 transition-colors">
+              <a href={`mailto:${portfolioData.basicInfo.email}`} className="transition-colors hover:text-primary-blue-700">
                 Email
               </a>
             </div>
           </div>
-          <div className="mt-8 text-center text-gray-400">
+          <div className="mt-8 text-center text-slate-500">
             <p>© {new Date().getFullYear()} {portfolioData.basicInfo.name}. All rights reserved.</p>
           </div>
         </div>

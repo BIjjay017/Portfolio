@@ -11,7 +11,7 @@ const ScrollIndicator = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-blue to-primary-green origin-left z-50"
+      className="fixed left-0 right-0 top-0 z-[90] h-[3px] origin-left bg-gradient-to-r from-primary-blue via-cyan-500 to-primary-green"
       style={{ scaleX }}
     />
   );

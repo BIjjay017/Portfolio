@@ -8,7 +8,6 @@ import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import ScrollIndicator from './components/ScrollIndicator';
-import Cursor from './components/Cursor/Cursor';
 import PageTransition from './components/Transitions/PageTransition';
 import StickySection from './components/StickySection';
 import useLenis from './hooks/useLenis';
@@ -31,12 +30,11 @@ function App() {
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <ScrollIndicator />
-      <Cursor />
       <Header darkMode={darkMode} setDarkMode={setDarkMode} data={portfolioData.basicInfo} />
       <PageTransition>
-        <main className="noise-overlay relative overflow-hidden">
+        <main className="noise-overlay relative overflow-hidden bg-white">
           <Hero data={portfolioData.basicInfo} intro={portfolioData.introduction} />
           <About data={portfolioData.about} />
           <Skills data={portfolioData.skills} />

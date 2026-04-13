@@ -1,41 +1,11 @@
-import {
+import React, {
   useEffect,
   useRef,
-  useReducer,
-  ReactNode,
+  useReducer
 } from 'react';
 import { motion } from 'framer-motion';
 
-interface ScrollExpandMediaProps {
-  id?: string;
-  mediaType?: 'video' | 'image';
-  mediaSrc: string;
-  posterSrc?: string;
-  bgImageSrc: string;
-  title?: string;
-  date?: string;
-  scrollToExpand?: string;
-  textBlend?: boolean;
-  children?: ReactNode;
-}
-
-interface ScrollExpandMediaState {
-  scrollProgress: number;
-  showContent: boolean;
-  mediaFullyExpanded: boolean;
-  touchStartY: number;
-  isMobileState: boolean;
-}
-
-type ScrollExpandMediaAction =
-  | { type: 'RESET_MEDIA' }
-  | { type: 'SET_PROGRESS'; payload: number }
-  | { type: 'SET_TOUCH_START'; payload: number }
-  | { type: 'CLEAR_TOUCH_START' }
-  | { type: 'SET_MOBILE'; payload: boolean }
-  | { type: 'COLLAPSE_MEDIA' };
-
-const initialState: ScrollExpandMediaState = {
+const initialState = {
   scrollProgress: 0,
   showContent: false,
   mediaFullyExpanded: false,
@@ -43,13 +13,10 @@ const initialState: ScrollExpandMediaState = {
   isMobileState: false,
 };
 
-const clamp = (value: number, min: number, max: number): number =>
+const clamp = (value, min, max) =>
   Math.min(Math.max(value, min), max);
 
-function scrollExpandMediaReducer(
-  state: ScrollExpandMediaState,
-  action: ScrollExpandMediaAction
-): ScrollExpandMediaState {
+function scrollExpandMediaReducer(state, action) {
   if (action.type === 'RESET_MEDIA') {
     return {
       ...state,
@@ -114,7 +81,7 @@ const ScrollExpandMedia = ({
   scrollToExpand,
   textBlend,
   children,
-}: ScrollExpandMediaProps) => {
+}) => {
   const [state, dispatch] = useReducer(scrollExpandMediaReducer, initialState);
   const stateRef = useRef(state);
 
@@ -127,7 +94,7 @@ const ScrollExpandMedia = ({
   }, [mediaType]);
 
   useEffect(() => {
-    const handleWheel = (e: globalThis.WheelEvent) => {
+    const handleWheel = (e) => {
       const currentState = stateRef.current;
 
       if (currentState.mediaFullyExpanded && e.deltaY < 0 && window.scrollY <= 5) {
@@ -143,11 +110,11 @@ const ScrollExpandMedia = ({
       }
     };
 
-    const handleTouchStart = (e: globalThis.TouchEvent) => {
+    const handleTouchStart = (e) => {
       dispatch({ type: 'SET_TOUCH_START', payload: e.touches[0].clientY });
     };
 
-    const handleTouchMove = (e: globalThis.TouchEvent) => {
+    const handleTouchMove = (e) => {
       const currentState = stateRef.current;
       if (!currentState.touchStartY) return;
 
@@ -169,43 +136,43 @@ const ScrollExpandMedia = ({
       }
     };
 
-    const handleTouchEnd = (): void => {
+    const handleTouchEnd = () => {
       dispatch({ type: 'CLEAR_TOUCH_START' });
     };
 
-    const handleScroll = (): void => {
+    const handleScroll = () => {
       if (!stateRef.current.mediaFullyExpanded) {
         window.scrollTo(0, 0);
       }
     };
 
-    window.addEventListener('wheel', handleWheel as unknown as EventListener, {
+    window.addEventListener('wheel', handleWheel, {
       passive: false,
     });
-    window.addEventListener('scroll', handleScroll as EventListener);
+    window.addEventListener('scroll', handleScroll);
     window.addEventListener(
       'touchstart',
-      handleTouchStart as unknown as EventListener,
+      handleTouchStart,
       { passive: false }
     );
     window.addEventListener(
       'touchmove',
-      handleTouchMove as unknown as EventListener,
+      handleTouchMove,
       { passive: false }
     );
-    window.addEventListener('touchend', handleTouchEnd as EventListener);
+    window.addEventListener('touchend', handleTouchEnd);
 
     return () => {
-      window.removeEventListener('wheel', handleWheel as unknown as EventListener);
-      window.removeEventListener('scroll', handleScroll as EventListener);
-      window.removeEventListener('touchstart', handleTouchStart as unknown as EventListener);
-      window.removeEventListener('touchmove', handleTouchMove as unknown as EventListener);
-      window.removeEventListener('touchend', handleTouchEnd as EventListener);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
   useEffect(() => {
-    const checkIfMobile = (): void => {
+    const checkIfMobile = () => {
       dispatch({ type: 'SET_MOBILE', payload: window.innerWidth < 768 });
     };
 
@@ -238,15 +205,17 @@ const ScrollExpandMedia = ({
             <img
               src={bgImageSrc}
               alt='Background'
+              loading="lazy" 
+              decoding="async"
               className='w-screen h-screen object-cover object-center'
             />
             <div className='absolute inset-0 bg-black/10' />
           </motion.div>
 
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10'>
-            <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
+            <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative overflow-hidden'>
               <motion.div
-                className='absolute z-0 top-1/2 left-1/2 max-w-[95vw] max-h-[85vh] -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl shadow-[0px_0px_50px_rgba(0,0,0,0.3)]'
+                className='absolute z-0 top-1/2 left-1/2 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl shadow-[0px_0px_50px_rgba(0,0,0,0.3)]'
                 animate={{ width: mediaWidth, height: mediaHeight }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               >
@@ -310,6 +279,8 @@ const ScrollExpandMedia = ({
                     <img
                       src={mediaSrc}
                       alt={title || 'Media content'}
+                      loading="lazy" 
+                      decoding="async"
                       className='w-full h-full object-cover rounded-xl'
                     />
 

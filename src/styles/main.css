@@ -8,32 +8,25 @@
   }
 
   :root {
-    --ink: #0f172a;
-    --muted: #475569;
-    --surface: rgba(255, 255, 255, 0.78);
-    --line: rgba(15, 23, 42, 0.09);
-    --accent-a: #1d4ed8;
-    --accent-b: #0ea5a1;
-    --accent-c: #f59e0b;
-    --glow-blue: rgba(29, 78, 216, 0.18);
-    --glow-teal: rgba(14, 165, 161, 0.16);
+    --ink: #000000;
+    --muted: #B0B0B0;
+    --surface: #FFFFFF;
+    --line: #E0E0E0;
+    --accent-a: #C0C0C0;
+    --accent-b: #B0B0B0;
+    --accent-c: #E0E0E0;
+    --glow-blue: rgba(192, 192, 192, 0.18);
+    --glow-teal: rgba(176, 176, 176, 0.16);
   }
   
   body {
     @apply text-slate-900 transition-colors duration-300 dark:text-slate-100;
-    background:
-      radial-gradient(circle at 10% 10%, rgba(14, 165, 161, 0.14), transparent 26%),
-      radial-gradient(circle at 88% 16%, rgba(37, 99, 235, 0.14), transparent 22%),
-      radial-gradient(circle at 80% 72%, rgba(245, 158, 11, 0.1), transparent 18%),
-      linear-gradient(145deg, #eef8ff 0%, #f8fbff 45%, #f5fffb 100%);
+    background: #FFFFFF;
     font-family: 'Manrope', system-ui, -apple-system, sans-serif;
   }
 
   .dark body {
-    background:
-      radial-gradient(circle at 18% 16%, rgba(14, 165, 161, 0.16), transparent 30%),
-      radial-gradient(circle at 84% 14%, rgba(37, 99, 235, 0.2), transparent 28%),
-      linear-gradient(145deg, #020617 0%, #0f172a 55%, #111827 100%);
+    background: #000000;
   }
 
   h1,
@@ -199,9 +192,7 @@
 }
 
 .gradient-mesh-bg {
-  background: linear-gradient(-45deg, rgba(37, 99, 235, 0.08), rgba(16, 185, 129, 0.08), rgba(245, 158, 11, 0.06), rgba(37, 99, 235, 0.08));
-  background-size: 400% 400%;
-  animation: gradient-mesh 15s ease infinite;
+  background: #E0E0E0;
 }
 
 .modal-overlay {

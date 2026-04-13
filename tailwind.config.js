@@ -8,39 +8,49 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* Accessible color scales for light/dark variants */
         'primary-blue': {
-          50: '#f0f9ff',
-          100: '#e6f4ff',
-          200: '#bae6ff',
-          300: '#7cc8ff',
-          400: '#60A5FA',
-          DEFAULT: '#60A5FA',
-          600: '#3b82f6',
-          700: '#2563eb',
-          800: '#1e40af',
-          900: '#172554'
+          DEFAULT: '#000000',
+          50: '#FFFFFF',
+          100: '#F5F5F5',
+          200: '#E0E0E0',
+          300: '#C0C0C0',
+          400: '#B0B0B0',
+          600: '#B0B0B0',
+          700: '#000000',
+          800: '#000000',
+          900: '#000000'
         },
         'primary-green': {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#34D399',
-          DEFAULT: '#34D399',
-          600: '#10b981',
-          700: '#059669',
-          800: '#047857',
-          900: '#064e3b'
+          DEFAULT: '#B0B0B0',
+          50: '#FFFFFF',
+          100: '#F5F5F5',
+          200: '#E0E0E0',
+          300: '#C0C0C0',
+          400: '#B0B0B0',
+          600: '#B0B0B0',
+          700: '#000000',
+          800: '#000000',
+          900: '#000000'
         },
-        /* Backwards-compatible shorthand tokens */
         primary: {
-          blue: '#60A5FA',
-          green: '#34D399',
-          dark: '#0f172a',
-          light: '#f8fafc'
+          blue: '#000000',
+          green: '#B0B0B0',
+          dark: '#000000',
+          light: '#FFFFFF'
         },
-        'primary-dark': '#0f172a'
+        'primary-dark': '#000000',
+        slate: {
+          50: '#FFFFFF',
+          100: '#FAFAFA',
+          200: '#E0E0E0',
+          300: '#C0C0C0',
+          400: '#B0B0B0',
+          500: '#B0B0B0',
+          600: '#B0B0B0',
+          700: '#C0C0C0',
+          800: '#E0E0E0',
+          900: '#000000'
+        }
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

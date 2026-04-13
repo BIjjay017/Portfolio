@@ -3,13 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
-type BoxesCoreProps = React.HTMLAttributes<HTMLDivElement> & {
-  className?: string;
-};
-
-export const BoxesCore = ({ className, ...rest }: BoxesCoreProps) => {
+export const BoxesCore = ({ className, ...rest }) => {
   const rows = React.useMemo(() => new Array(150).fill(1), []);
   const cols = React.useMemo(() => new Array(100).fill(1), []);
 

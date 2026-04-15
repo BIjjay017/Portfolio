@@ -6,15 +6,31 @@ import { Boxes } from './ui/background-boxes';
 import { container, pill } from '../utils/animations';
 import cvPDF from '../pictures/BijayShreepali.pdf';
 import personImageOne from '../pictures/person1.jpg';
+import personImageTwo from '../pictures/person2.JPG?url';
 
 const Hero = ({ data, intro }) => {
+  const heroImages = useMemo(() => {
+    const useFirstAsMedia = Math.random() > 0.5;
+
+    if (useFirstAsMedia) {
+      return {
+        mediaSrc: personImageOne,
+        bgImageSrc: personImageTwo,
+      };
+    }
+
+    return {
+      mediaSrc: personImageTwo,
+      bgImageSrc: personImageOne,
+    };
+  }, []);
 
   return (
     <ScrollExpandMedia
       id="home"
       mediaType="image"
-      mediaSrc={personImageOne}
-      bgImageSrc={personImageOne}
+      mediaSrc={heroImages.mediaSrc}
+      bgImageSrc={heroImages.bgImageSrc}
       title="FULL-STACK DEVELOPER"
       date={data.name}
       scrollToExpand="Scroll to reveal hero"

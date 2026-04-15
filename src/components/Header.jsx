@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
 import { Menu, X, Download } from 'lucide-react';
 import { fadeUp } from '../utils/animations';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 import cvPDF from '../pictures/BijayShreepali.pdf';
 
@@ -10,6 +10,7 @@ const Header = ({ darkMode, setDarkMode, data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const { scrollY } = useScroll();
 
   const navItems = [
     { idx: '00', label: 'Home', href: '#home' },
@@ -20,20 +21,16 @@ const Header = ({ darkMode, setDarkMode, data }) => {
     { idx: '05', label: 'Contact', href: '#contact' },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      if (currentY < 64) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(currentY < lastScrollY.current);
-      }
+  useMotionValueEvent(scrollY, 'change', (currentY) => {
+    if (currentY < 64) {
+      setIsVisible(true);
       lastScrollY.current = currentY;
-    };
+      return;
+    }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    setIsVisible(currentY < lastScrollY.current);
+    lastScrollY.current = currentY;
+  });
 
   return (
     <motion.header

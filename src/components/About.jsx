@@ -1,21 +1,10 @@
 import { motion } from 'framer-motion';
 import { Bike, Lightbulb, Plane, Sparkles, Target } from 'lucide-react';
-import personImageTwo from '../pictures/person2.JPG?url';
-import ScrollExpandMedia from './ui/scroll-expansion-hero';
 
 const About = ({ data }) => {
   return (
-    <ScrollExpandMedia
-      id="about"
-      mediaType="image"
-      mediaSrc={personImageTwo}
-      bgImageSrc={personImageTwo}
-      title="EXPERTISE INNOVATION"
-      scrollToExpand="Scroll to reveal more"
-      textBlend
-    >
-      <section className="section-container">
-        <div className="split-grid">
+    <section id="about" className="section-container">
+      <div className="split-grid">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -74,8 +63,7 @@ const About = ({ data }) => {
 
         </motion.div>
       </div>
-      </section>
-    </ScrollExpandMedia>
+    </section>
   );
 };
 

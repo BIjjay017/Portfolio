@@ -47,7 +47,7 @@
 
 @layer components {
   .section-container {
-    @apply mx-auto max-w-7xl px-5 py-16 sm:px-8 md:py-24;
+    @apply mx-auto max-w-7xl px-5 py-12 sm:px-8 md:py-16;
   }
   
   .section-kicker {
@@ -198,8 +198,8 @@
 .modal-overlay {
   @apply fixed inset-0 z-50 flex items-center justify-center;
   background: rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(9px);
   -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px);
 }
 
 .modal-content {
